@@ -1,10 +1,9 @@
 import falcon
 
-from .bank_agencies import Resource
+from .bank_agencies import Resource as ResourceBankAgency
 
 
 api = application = falcon.API()
 
-bank_agencies = Resource()
-api.add_route('', {'Favor definir qual pesquisa deseja efetuar.'})
+bank_agencies = ResourceBankAgency()
 api.add_route('/bank_agencies', bank_agencies)
