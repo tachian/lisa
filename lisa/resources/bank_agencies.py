@@ -3,7 +3,7 @@ import json
 import falcon
 
 
-class Resource(object):
+class BankAgencyResource(object):
 
     def on_get(self, req, resp):
         doc = {

@@ -1,9 +1,8 @@
 import falcon
 
-from .bank_agencies import Resource as ResourceBankAgency
+from .resources.bank_agencies import BankAgencyResource
 
 
 api = application = falcon.API()
 
-bank_agencies = ResourceBankAgency()
-api.add_route('/bank_agencies', bank_agencies)
+api.add_route('/bank_agencies', BankAgencyResource())

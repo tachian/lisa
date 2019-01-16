@@ -1,2 +1,4 @@
 gunicorn
-falcon==1.4.1
+falcon
+mongoengine
+pymongo
