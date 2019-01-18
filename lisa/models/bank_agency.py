@@ -1,7 +1,7 @@
 from mongoengine import *
 
 
-class BankAgencyModel(Document):
+class BankAgency(Document):
 
     Bank = StringField(max_length=3) 
     Branch = StringField(max_length=4) 

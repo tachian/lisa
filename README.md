@@ -8,6 +8,11 @@ Após realizar o git clone do repositório, execute o seguinte comando para inst
 pip install -r requirements.txt
 ```
 
+Criar configuração d projeto
+```
+python setup.py install
+```
+
 # Para iniciar o servidor
 Linux - Mac
 ```
