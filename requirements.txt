@@ -2,3 +2,5 @@ gunicorn
 falcon
 mongoengine
 pymongo
+Click
+ipdb
