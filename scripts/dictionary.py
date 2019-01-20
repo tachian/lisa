@@ -9,11 +9,11 @@ from pymongo import MongoClient
 def dictionary():
   pass
 
-@dictionary.command(name='create_bank_agency')
+@dictionary.command(name='create_bank_branches')
 @click.argument('input', type=click.Path(exists=True))
-def create_bank_agency(input):
+def create_bank_branches(input):
   '''
-    CSV to JSON Conversion
+    Create bank branches from CSV file
   '''
   with open(input, mode='r', encoding='utf-8-sig') as csv_file:
     reader = csv.DictReader( csv_file, delimiter=';')
@@ -21,12 +21,51 @@ def create_bank_agency(input):
     db=mongo_client.lisa
     db.segment.drop()
     
-    header= ['Bank', 'Branch', 'Type', 'BankName', 'BankNickName', 'BranchName', 'AttendedOrganization', 'ZIP', 'x', 'y', 'BankCategory', 'Annexation', 'Differentiation', 'Recency', 'Activity', 'Unicity', 'StartDate', 'LastStand', 'PopulationalRank', 'OutskirtsReference', 'TownCharacteristics', 'Region', 'AddressStreet', 'AddressNumber', 'AddressComplement', 'Neighborhood', 'City', 'State', 'SRFGraphy', 'BranchNickName1', 'BranchNickName2', 'BranchNickName3', 'BranchNickName4', 'BranchNickName5', 'BranchNickName6', 'BranchNickName7', 'BranchNickName8', 'BranchNickName9', 'BranchNickName10']
+    header= [
+      'bank', 
+      'branch', 
+      'type', 
+      'bankName', 
+      'bankNickName', 
+      'branchName', 
+      'attendedOrganization', 
+      'zip', 
+      'longitude', 
+      'latitude', 
+      'bankCategory', 
+      'annexation', 
+      'differentiation', 
+      'recency', 
+      'activity', 
+      'unicity', 
+      'startDate', 
+      'lastStand', 
+      'populationalRank', 
+      'outskirtsReference', 
+      'townCharacteristics', 
+      'region', 
+      'addressStreet', 
+      'addressNumber', 
+      'addressComplement', 
+      'neighborhood', 
+      'city', 
+      'state', 
+      'SRFGraphy', 
+      'branchNickName1', 
+      'branchNickName2', 
+      'branchNickName3', 
+      'branchNickName4', 
+      'branchNickName5', 
+      'branchNickName6', 
+      'branchNickName7', 
+      'branchNickName8', 
+      'branchNickName9', 
+      'branchNickName10']
     
     for each in reader:
         row={}
-        print("{} - {}".format(each['Bank'], each['Branch']))
+        print("{} - {}".format(each['bank'], each['branch']))
         for field in header:
             row[field]=each[field]
 
-        db.bank_agency.insert(row)
+        db.bank_branch.insert(row)
