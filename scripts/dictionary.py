@@ -3,7 +3,7 @@ import click
 import csv
 import json
 
-from pymongo import MongoClient
+from lisa.models.bank_branch import BankBranch
 
 @click.group()
 def dictionary():
@@ -17,9 +17,9 @@ def create_bank_branches(input):
   '''
   with open(input, mode='r', encoding='utf-8-sig') as csv_file:
     reader = csv.DictReader( csv_file, delimiter=';')
-    mongo_client=MongoClient()
-    db=mongo_client.lisa
-    db.segment.drop()
+    BankBranch.drop_collection()
+    # db=mongo_client.lisa
+    # db.segment.drop()
     
     header= [
       'bank', 
@@ -68,4 +68,5 @@ def create_bank_branches(input):
         for field in header:
             row[field]=each[field]
 
-        db.bank_branch.insert(row)
+        bank_branch = BankBranch(**row)
+        bank_branch.save()
