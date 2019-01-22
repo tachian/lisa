@@ -10,7 +10,14 @@ if env == 'development':
 elif env == 'testing':
   connect(db='lisa-test')
 else:
+  # connect(
+  #   db=db,
+  #   host=host
+  # )
   connect(
-    db=db,
-    host=host
+      db=db,
+      username='heroku_stbn5k91',
+      password='docskl74td4rrnedkevovuosbl',
+      host='ds263460.mlab.com',
+      port=63460
   )

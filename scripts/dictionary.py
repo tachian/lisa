@@ -68,5 +68,8 @@ def create_bank_branches(input):
         for field in header:
             row[field]=each[field]
 
-        bank_branch = BankBranch(**row)
-        bank_branch.save()
+        try:
+          bank_branch = BankBranch(**row)
+          bank_branch.save()
+        except Exception as e:
+          print(e)
