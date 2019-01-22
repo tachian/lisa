@@ -1,11 +1,13 @@
-# from mongoengine import *
-# from unittest import TestCase 
+import unittest
 
-# class Test(TestCase):
+from mongoengine import *
 
-#     def setUp(self):
-#         self.db = connect(db='lisa-test')
 
-#     def tearDown(self):
-#         self.db.drop_database()
-#         self.db.close()
+class TestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.db = connect(db='lisa-test')
+
+    def tearDown(self):
+        self.db.drop_database('lisa-test')
+        self.db.close()

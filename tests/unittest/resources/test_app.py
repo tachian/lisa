@@ -1,21 +1,20 @@
 import pytest
 import falcon
 
-from falcon import testing
-from lisa.app import api
+from tests import TestCase
+from tests.conftest import client
 from lisa.models.bank_branch import BankBranch
 
-@pytest.fixture
-def client():
-    return testing.TestClient(api)
 
-def test_get_branch(client):
+class BankAgency(TestCase):
 
-    bank_branch = BankBranch(bank='001', branch='0001')
-    bank_branch.save()
+    def test_get_branch(self):
+        expect_response = [{'bank': '001', 'branch': '0001'}]
 
-    response = client.simulate_get('/bank_branches', ['bank'='001', 'branch'='0001'])
-    import pdb; pdb.set_trace()
+        bank_branch = BankBranch(bank='001', branch='0001')
+        bank_branch.save()
 
-    assert response.json == ''
-    assert response.status == falcon.HTTP_OK
+        response = client().simulate_get('/bank_branches', params={'bank': '001', 'branch': '0001'})
+
+        assert response.json == expect_response
+        assert response.status == falcon.HTTP_OK

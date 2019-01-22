@@ -13,7 +13,7 @@ class BankBranchResource(object):
         bank = req.get_param('bank', required=True)
         branch = req.get_param('branch', required=True)
 
-        bankBranch = BankBranch.objects(bank=bank, branch=branch)
+        bankBranch = BankBranch.objects(bank=bank, branch=branch).exclude("id")
         doc = bankBranch.to_json()
         
         resp.body = doc
