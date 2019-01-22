@@ -8,7 +8,14 @@ env = os.environ['ENV'] if 'ENV' in os.environ else 'development'
 if env == 'development':
   connect(db=db)
 else:
+  # connect(
+  #   db=db,
+  #   host=host
+  # )
   connect(
-    db=db,
-    host=host
+      db=db,
+      username='heroku_stbn5k91',
+      password='docskl74td4rrnedkevovuosbl',
+      host='ds263460.mlab.com',
+      port=63460
   )
