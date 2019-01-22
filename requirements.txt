@@ -4,3 +4,4 @@ mongoengine
 pymongo
 Click
 ipdb
+pytest

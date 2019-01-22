@@ -7,6 +7,8 @@ env = os.environ['ENV'] if 'ENV' in os.environ else 'development'
 
 if env == 'development':
   connect(db=db)
+elif env == 'testing':
+  connect(db='lisa-test')
 else:
   connect(
     db=db,
