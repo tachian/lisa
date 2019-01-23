@@ -28,3 +28,13 @@ class BankAgency(TestCase):
         response = self.client().simulate_get('/bank_branches', params={'branch': '0001'})
         assert response.json == {'title': 'Missing parameter', 'description': 'The "bank" parameter is required.'}
         assert response.status == falcon.HTTP_BAD_REQUEST
+
+    def test_get_branch_empty_response(self):
+        
+        bank_branch = BankBranch(bank='001', branch='0001')
+        bank_branch.save()
+
+        response = self.client().simulate_get('/bank_branches', params={'bank': '000', 'branch': '0001'})
+
+        assert response.json == []
+        assert response.status == falcon.HTTP_OK

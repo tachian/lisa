@@ -3,6 +3,9 @@ from mongoengine import *
 
 host = os.environ['MONGODB_URI'] if 'MONGODB_URI' in os.environ else 'http://localhost'
 db = os.environ['MONGODB_DB'] if 'MONGODB_DB' in os.environ else 'lisa'
+username = os.environ['MONGODB_USER'] if 'MONGODB_USER' in os.environ else ''
+password = os.environ['MONGODB_PWD'] if 'MONGODB_PWD' in os.environ else ''
+port = os.environ['MONGODB_PORT'] if 'MONGODB_PORT' in os.environ else 27017
 env = os.environ['ENV'] if 'ENV' in os.environ else 'development'
 
 if env == 'development':
@@ -10,14 +13,10 @@ if env == 'development':
 elif env == 'testing':
   connect(db='lisa-test')
 else:
-  # connect(
-  #   db=db,
-  #   host=host
-  # )
   connect(
       db=db,
-      username='heroku_stbn5k91',
-      password='docskl74td4rrnedkevovuosbl',
-      host='ds263460.mlab.com',
+      username=username,
+      password=password,
+      host=host,
       port=63460
   )

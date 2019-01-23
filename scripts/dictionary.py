@@ -4,6 +4,7 @@ import csv
 import json
 
 from lisa.models.bank_branch import BankBranch
+from lisa.models.occupation import Occupation
 
 @click.group()
 def dictionary():
@@ -18,8 +19,6 @@ def create_bank_branches(input):
   with open(input, mode='r', encoding='utf-8-sig') as csv_file:
     reader = csv.DictReader( csv_file, delimiter=';')
     BankBranch.drop_collection()
-    # db=mongo_client.lisa
-    # db.segment.drop()
     
     header= [
       'bank', 
@@ -71,5 +70,39 @@ def create_bank_branches(input):
         try:
           bank_branch = BankBranch(**row)
           bank_branch.save()
+        except Exception as e:
+          print(e)
+
+@dictionary.command(name='create_occupations')
+@click.argument('input', type=click.Path(exists=True))
+def create_occupations(input):
+  '''
+    Create occupations from CSV file
+  '''
+  with open(input, mode='r', encoding='utf-8-sig') as csv_file:
+    reader = csv.DictReader( csv_file, delimiter=';')
+    Occupation.drop_collection()
+    
+    header= [
+      'post',
+      'code',
+      'postNickName1',
+      'postNickName2',
+      'postNickName3',
+      'postNickName4',
+      'postNickName5',
+      'postNickName6',
+      'postNickName7'
+    ]
+    
+    for each in reader:
+        row={}
+        print("{}".format(each['post']))
+        for field in header:
+            row[field]=each[field]
+
+        try:
+          occupation = Occupation(**row)
+          occupation.save()
         except Exception as e:
           print(e)
