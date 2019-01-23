@@ -9,7 +9,7 @@ port = os.environ['MONGODB_PORT'] if 'MONGODB_PORT' in os.environ else 27017
 env = os.environ['ENV'] if 'ENV' in os.environ else 'development'
 
 if env == 'development':
-  connect(db=db)
+  connect(db='lisa')
 elif env == 'testing':
   connect(db='lisa-test')
 else:
