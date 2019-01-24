@@ -5,7 +5,6 @@ from mongoengine import *
 from falcon import testing
 from lisa.app import api
 
-os.environ["ENV"] = "testing"
 
 class TestCase(unittest.TestCase):
 

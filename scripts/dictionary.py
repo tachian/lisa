@@ -5,6 +5,7 @@ import json
 
 from lisa.models.bank_branch import BankBranch
 from lisa.models.occupation import Occupation
+from lisa.models.zip import Zip
 
 @click.group()
 def dictionary():
@@ -104,5 +105,63 @@ def create_occupations(input):
         try:
           occupation = Occupation(**row)
           occupation.save()
+        except Exception as e:
+          print(e)
+
+@dictionary.command(name='create_zips')
+@click.argument('input', type=click.Path(exists=True))
+def create_zips(input):
+  '''
+    Create zips from CSV file
+  '''
+  with open(input, mode='r', encoding='utf-8-sig') as csv_file:
+    reader = csv.DictReader( csv_file, delimiter=';')
+    Zip.drop_collection()
+    
+    header= [
+      'city',
+      'zip',
+      'downtownDistance',
+      'minimalBorderDistance',
+      'minimalSlumDistance',
+      'nextBorderCountry',
+      'nextBorderState',
+      'nextBorderTown',
+      'outskirtsReference',
+      'populationalRank',
+      'primeLocationBranchesNumber',
+      'primeLocationBranchesRecency',
+      'regularBranchesNumber',
+      'regularBranchesRecency',
+      'state',
+      'townCharacteristics',
+      'VIPBranchesNumber',
+      'VIPBranchesRecency',
+      'zipAddressIsSlum',
+      'longitude',
+      'latitude',
+      'region',
+      'population',
+      'cityNickName1',
+      'cityNickName2',
+      'cityNickName3',
+      'cityNickName4',
+      'cityNickName5',
+      'cityNickName6',
+      'cityNickName7',
+      'cityNickName8',
+      'cityNickName9',
+      'cityNickName10'
+    ]
+    
+    for each in reader:
+        row={}
+        print("{}".format(each['zip']))
+        for field in header:
+            row[field]=each[field]
+
+        try:
+          zip = Zip(**row)
+          zip.save()
         except Exception as e:
           print(e)

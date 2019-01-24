@@ -6,7 +6,7 @@ from tests import TestCase
 from lisa.models.occupation import Occupation
 
 
-class BankAgency(TestCase):
+class TestOccupation(TestCase):
 
     def test_get_occupation_commom(self):
         expect_response = [{'post': u'teste ocupação', 'code': '999'}]
@@ -14,14 +14,14 @@ class BankAgency(TestCase):
         occupation = Occupation(post=u'teste ocupação', code='999')
         occupation.save()
 
-        response = self.client().simulate_get('/occupations', params={'post': u'teste ocupação'})
+        response = self.client().simulate_get('/occupation', params={'post': u'teste ocupação'})
 
         assert response.json == expect_response
         assert response.status == falcon.HTTP_OK
 
     def test_get_occupation_invalid_parameters(self):
         
-        response = self.client().simulate_get('/occupations')
+        response = self.client().simulate_get('/occupation')
         assert response.json == {'title': 'Missing parameter', 'description': 'The "post" parameter is required.'}
         assert response.status == falcon.HTTP_BAD_REQUEST
 
@@ -30,7 +30,7 @@ class BankAgency(TestCase):
         occupation = Occupation(post='teste 123')
         occupation.save()
 
-        response = self.client().simulate_get('/occupations', params={'post': 'XXX'})
+        response = self.client().simulate_get('/occupation', params={'post': 'XXX'})
 
         assert response.json == []
         assert response.status == falcon.HTTP_OK
